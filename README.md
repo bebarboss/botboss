@@ -10,3 +10,4 @@ Designed for easy use without running commands in the terminal.
 - Supports multiple websites/buttons (configurable)  
 
 <img width="537" height="904" alt="image" src="https://github.com/user-attachments/assets/2467cb5b-d36f-4380-89bc-bbefb4d24dbd" />
+![Uploading image.png…]()
