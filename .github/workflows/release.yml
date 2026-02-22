@@ -54,7 +54,8 @@ jobs:
       run: |
         rmdir /s /q build dist 2>nul || true
         pyinstaller main.spec
-        Compress-Archive -Path dist\BOTBOSS.exe -DestinationPath dist\BOTBOSS-Windows.zip
+        cd dist
+        7z a BOTBOSS-Windows.zip BOTBOSS.exe
       shell: cmd
     
     - name: Upload artifacts
