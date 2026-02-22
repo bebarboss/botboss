@@ -25,6 +25,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Clean build directories
+      run: |
+        rm -rf build dist
+    
     - name: Build macOS app
       run: |
         pyinstaller main.spec
@@ -65,7 +69,13 @@ jobs:
         python-version: '3.11'
     
     - name: Install dependencies
+      run: |Clean build directories
       run: |
+        if (Test-Path build) { Remove-Item -Recurse -Force build }
+        if (Test-Path dist) { Remove-Item -Recurse -Force dist }
+      shell: pwsh
+    
+    - name: 
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
