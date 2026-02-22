@@ -121,51 +121,47 @@ jobs:
     - name: Create Release using GitHub CLI
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAG: ${{ github.ref_name }}
       run: |
-        # Create release
-        gh release create ${{ github.ref_name }} \
+        gh release create "$TAG" \
           artifacts/BOTBOSS-macOS-DMG/BOTBOSS.dmg \
           artifacts/BOTBOSS-macOS-ZIP/BOTBOSS-macOS.zip \
           artifacts/BOTBOSS-Windows-EXE/BOTBOSS.exe \
           artifacts/BOTBOSS-Windows-ZIP/BOTBOSS-Windows.zip \
-          --title "BOTBOSS ${{ github.ref_name }}" \
-          --notes "## 🎉 Release ${{ github.ref_name }}
+          --title "BOTBOSS $TAG" \
+          --notes "## 🎉 BOTBOSS $TAG Release
+
+Multi-platform release with macOS and Windows support!
 
 ### Downloads
 
+**macOS:**
+- BOTBOSS.dmg - DMG installer (recommended)
+- BOTBOSS-macOS.zip - ZIP archive
+
+**Windows:**
+- BOTBOSS.exe - Portable executable
+- BOTBOSS-Windows.zip - ZIP archive
+
+### Installation
+
 #### macOS
-- **BOTBOSS.dmg** - DMG installer (recommended)
-- **BOTBOSS-macOS.zip** - ZIP archive
-
-**Requirements:** macOS 11+, Google Chrome
-
-**Installation:**
-1. Download DMG or ZIP
-2. Open/Extract and move to Applications
-3. Right-click → Open (first time only)
+1. Download BOTBOSS.dmg
+2. Double-click to open
+3. Drag BOTBOSS to Applications folder
+4. Right-click app → Open (first time only)
 
 #### Windows
-- **BOTBOSS.exe** - Portable executable (recommended)
-- **BOTBOSS-Windows.zip** - ZIP archive
-
-**Requirements:** Windows 10+, Google Chrome
-
-**Installation:**
-1. Download EXE or ZIP
-2. Extract (if ZIP) and run BOTBOSS.exe
+1. Download BOTBOSS.exe
+2. Run the executable
 3. Allow in Windows Defender if prompted
 
----
-
-### First Launch
-
-**macOS:** Right-click → Open (bypass Gatekeeper)
-**Windows:** Click 'More info' → 'Run anyway' (bypass SmartScreen)
+### Requirements
+- macOS 11+ or Windows 10+
+- Google Chrome installed
 
 ### Features
-- ✅ Automatic ticket clicking
-- ✅ User-friendly GUI
-- ✅ Chrome debugging integration
-- ✅ Scheduled automation
-
-**Full documentation:** [README.md](https://github.com/bebarboss/botboss/blob/main/README.md)"
+✅ Automatic ticket clicking
+✅ User-friendly GUI
+✅ Chrome debugging integration
+✅ Scheduled automation"
