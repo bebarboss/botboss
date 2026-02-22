@@ -1,0 +1,66 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-macos:
+    name: Build macOS
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Build
+      run: |
+        rm -rf build dist
+        pyinstaller main.spec
+        cd dist && zip -r BOTBOSS-macOS.zip BOTBOSS.app
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: macos-artifacts
+        path: dist/BOTBOSS*
+
+  build-windows:
+    name: Build Windows
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Build
+      run: |
+        rmdir /s /q build dist 2>nul || true
+        pyinstaller main.spec
+        Compress-Archive -Path dist\BOTBOSS.exe -DestinationPath dist\BOTBOSS-Windows.zip
+      shell: cmd
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-artifacts
+        path: |
+          dist/BOTBOSS.exe
+          dist/BOTBOSS-Windows.zip
