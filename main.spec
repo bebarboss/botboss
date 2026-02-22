@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+import sys
 
 a = Analysis(
     ['main.py'],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='main',
+    name='BOTBOSS',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -35,5 +35,21 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['BOTBOSS_LOGO.ico'],
+    icon='BOTBOSS_LOGO.ico' if sys.platform == 'win32' else None,
 )
+
+# สำหรับ macOS: สร้าง .app bundle
+if sys.platform == 'darwin':
+    app = BUNDLE(
+        exe,
+        name='BOTBOSS.app',
+        icon='BOTBOSS_LOGO.icns' if os.path.exists('BOTBOSS_LOGO.icns') else None,
+        bundle_identifier='com.botboss.app',
+        info_plist={
+            'CFBundleName': 'BOTBOSS',
+            'CFBundleDisplayName': 'BOTBOSS',
+            'CFBundleVersion': '1.0.0',
+            'CFBundleShortVersionString': '1.0.0',
+            'NSHighResolutionCapable': 'True',
+        },
+    )

@@ -1,0 +1,1 @@
+([('BOTBOSS', '/Users/khaimook/Projects/botboss/dist/BOTBOSS', 'EXECUTABLE')],)

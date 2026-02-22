@@ -14,10 +14,20 @@ def find_chrome_path():
             os.path.expandvars(r"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"),
             os.path.expandvars(r"%LocalAppData%\Google\Chrome\Application\chrome.exe"),
         ]
-    else:
+    elif system == "Darwin":  # macOS
+        possible_paths = [
+            "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            os.path.expanduser("~/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
+            "/Applications/Chromium.app/Contents/MacOS/Chromium",
+            shutil.which("google-chrome"),
+            shutil.which("google-chrome-stable"),
+        ]
+    else:  # Linux
         possible_paths = [
             shutil.which("google-chrome"),
             shutil.which("google-chrome-stable"),
+            shutil.which("chromium"),
+            shutil.which("chromium-browser"),
         ]
 
     for path in possible_paths:
